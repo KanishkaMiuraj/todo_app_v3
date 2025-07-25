@@ -49,19 +49,8 @@ Before starting, make sure you have the following installed:
 
 ## 📁 Project Structure
 
-TODO_APP3/
+![App Screenshot](./images/ps1.png)
 
-├── backend/ # Node.js backend application
-│ ├── src/
-│ ├── package.json
-│ └── Dockerfile
-├── frontend/ # React.js frontend application
-│ ├── public/
-│ ├── src/
-│ ├── package.json
-│ ├── Dockerfile
-│ └── nginx.conf # Nginx configuration for serving React app
-└── docker-compose.yml # Orchestrates all services (backend, frontend, MySQL)
 
 
 
