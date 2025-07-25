@@ -61,24 +61,20 @@ TODO_APP3/
 │ └── nginx.conf # Nginx configuration for serving React app
 └── docker-compose.yml # Orchestrates all services (backend, frontend, MySQL)
 
-yaml
-Copy
-Edit
+
 
 ---
 
 ## ⚡ Getting Started
 
 ### 1. **Clone the Repository**
-```bash
+
 git clone https://github.com/KanishkaMiuraj/todo_app_v3.git
 cd todo_app_v3
 2. Configure Docker Compose
 Edit the docker-compose.yml file and set the database environment variables:
 
-yaml
-Copy
-Edit
+
 backend:
   environment:
     DB_HOST: mysql-db
@@ -94,9 +90,7 @@ mysql-db:
 3. Update Backend Database Config
 In backend/src/database/database.module.ts:
 
-ts
-Copy
-Edit
+
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
@@ -121,14 +115,10 @@ export class DatabaseModule {}
 4. Update Frontend API URL
 In frontend/src/api/tasksApi.js:
 
-js
-Copy
-Edit
+
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 5. Build & Run Docker Containers
-bash
-Copy
-Edit
+
 docker-compose up -d --build
 This builds and starts the containers for the frontend, backend, and MySQL.
 
@@ -138,15 +128,10 @@ Frontend UI: http://localhost:3001
 Backend API: http://localhost:3000
 
 🛑 Stopping the Application
-bash
-Copy
-Edit
+
 docker-compose down
 To remove volumes (reset MySQL data):
 
-bash
-Copy
-Edit
 docker-compose down --volumes
 ⚠️ Troubleshooting
 Port already in use:
@@ -155,9 +140,6 @@ Modify the port mapping in docker-compose.yml (e.g., 4000:3000).
 MySQL container unhealthy:
 Run:
 
-bash
-Copy
-Edit
 docker-compose logs mysql-db
 docker-compose down --volumes && docker-compose up -d --build
 Backend connection refused:
