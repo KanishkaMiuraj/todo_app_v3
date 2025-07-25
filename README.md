@@ -48,7 +48,9 @@ Before starting, make sure you have the following installed:
 ---
 
 ## 📁 Project Structure
+
 TODO_APP3/
+
 ├── backend/ # Node.js backend application
 │ ├── src/
 │ ├── package.json
