@@ -1,0 +1,23 @@
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+import { Task } from '../tasks/entities/task.entity'; // Import your Task entity
+
+dotenv.config(); // Load environment variables from .env file
+
+/**
+ * Database configuration for TypeORM.
+ * This configuration uses environment variables for sensitive data
+ * and defines the connection to the MySQL database.
+ */
+export const databaseConfig: TypeOrmModuleOptions = {
+  type: 'mysql', // Specify the database type
+  host: process.env.DATABASE_HOST || 'localhost', // Database host from environment, default to localhost
+  port: parseInt(process.env.DATABASE_PORT|| '3306', 10), // Database port from environment, default to 3306
+  username: process.env.DATABASE_USERNAME || 'root', // Database username from environment, default to root
+  password: process.env.DATABASE_PASSWORD || '', // Database password from environment
+  database: process.env.DATABASE_NAME || 'todo_app', // Database name from environment, default to todo_app
+  entities: [Task], // List of entities (tables) to be managed by TypeORM
+  synchronize: true, // IMPORTANT: Set to false in production. This automatically creates/updates tables based on entities.
+                    // For development, it's convenient, but risky in production as it can lead to data loss.
+  logging: false, // Set to true to see SQL queries in the console (useful for debugging)
+};

@@ -1,0 +1,35 @@
+/*
+ * frontend/src/index.css
+ *
+ * This file contains global CSS styles for your Material UI React application.
+ * It's crucial for setting up the basic layout and ensuring the app takes full screen height.
+ */
+
+/* Ensure html, body, and the root div take full height.
+   This is fundamental for the Material UI Container in App.js to correctly
+   occupy the entire viewport height and enable proper vertical alignment and scrolling. */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* Set the default font-family for the entire application.
+     Material UI components typically use Roboto, so ensuring it's applied globally
+     provides consistent typography. Fallbacks are included for browser compatibility. */
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  /* Enable font smoothing for better text rendering on macOS and other systems. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Set a light gray background color for the entire page, matching the assessment's aesthetic. */
+  background-color: #f5f5f5; /* This background will now extend full screen */
+}
+
+/* Styles for code blocks, typically for displaying code snippets. */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* You can add any other custom global CSS rules here if necessary. */

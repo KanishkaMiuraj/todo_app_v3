@@ -1,0 +1,58 @@
+version: '3.8' # Specify the Docker Compose file format version
+
+services:
+  backend:
+    build: ./backend # Path to the backend Dockerfile
+    container_name: todo-backend-service
+    ports:
+      - "3000:3000" # Map host port 3000 to container port 3000 (your backend port)
+    volumes:
+      - ./backend:/app # Mount the backend code for development
+      - /app/node_modules # Exclude node_modules from host mount
+    environment:
+      # Environment variables for your backend to connect to the MySQL service
+      # 'mysql-db' is the service name defined below.
+      DB_HOST: mysql-db
+      DB_PASSWORD: 990852391Kani@99 # <--- Use the root password here
+      DB_NAME: todo_database # <--- Choose a name for your database
+      DB_PORT: 3306
+      # Add any other backend environment variables here, e.g., NODE_ENV: production
+    depends_on:
+      mysql-db:
+        condition: service_healthy # Ensure MySQL is healthy before backend starts
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend # Path to the frontend Dockerfile
+    container_name: todo-frontend-service
+    ports:
+      - "3001:80" # Map host port 3001 to container port 80 (Nginx default)
+                  # You will access your frontend at http://localhost:3001
+    depends_on:
+      - backend # Ensure backend starts before frontend
+    environment:
+      # IMPORTANT: Your React app MUST now use this URL to connect to the backend.
+      # 'backend' is the service name defined above, 3000 is its container port.
+      REACT_APP_API_URL: "http://backend:3000"
+    restart: unless-stopped
+
+  mysql-db: # New service for MySQL database
+    image: mysql:8.0 # Use MySQL 8.0 image
+    container_name: todo-mysql-service
+    ports:
+      - "3306:3306" # Map host port 3306 to container port 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 990852391Kani@99 # <--- IMPORTANT: Use a strong password!
+      MYSQL_DATABASE: todo_database # <--- IMPORTANT: Use the same database name as DB_NAME above
+    volumes:
+      - mysql-data:/var/lib/mysql # Persistent volume for MySQL data
+    healthcheck: # A more lenient healthcheck to avoid timeout errors
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+# Define the named volume for persistent MySQL data
+volumes:
+  mysql-data:
